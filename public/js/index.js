@@ -1,17 +1,19 @@
-const fs = require('fs');
-const axios = require('axios');
-
 const teeTimeAPI = '/api/v1/teetimes'
 
-$(function(){
-    function getTeeTimes(){
-        axios
-        .get(teeTimeAPI)
-        .then((response) => {
-            const time = response.time
-            console.log(time)
-        })
-    }
-
-
+$(function () {
+    function getTeeTimes() {
+        $.ajax({
+          url: teeTimeAPI,
+          method: 'GET',
+          success: function (data) {
+            $.each(data, function (i, test) {
+              console.log(test.time)
+            });
+          },
+          error: function (err) {
+            alert(err);
+          },
+        });
+      }
+    getTeeTimes()
 })
