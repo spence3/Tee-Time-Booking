@@ -1,0 +1,17 @@
+{
+  "name": "custom-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "node index.js --watch"
+  },
+  "keywords": [],
+  "author": "spencer miller",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "cheerio": "^1.0.0",
+    "express": "^4.21.1"
+  }
+}
