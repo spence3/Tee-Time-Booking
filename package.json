@@ -4,15 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server": "node server.js --watch"
+    "server": "node server.js --watch",
+    "build": "tailwindcss -i input.css -o ./public/css/output.css --watch",
+    "start": "concurrently \"node server.js --watch\" \"tailwindcss -i input.css -o ./public/css/output.css --watch\""
   },
   "keywords": [],
   "author": "spencer miller",
   "license": "MIT",
   "dependencies": {
     "axios": "^1.7.7",
-    "jquery": "^3.7.1",
     "cheerio": "^1.0.0",
-    "express": "^4.21.1"
+    "concurrently": "^9.0.1",
+    "express": "^4.21.1",
+    "jquery": "^3.7.1"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.14"
   }
 }
