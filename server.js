@@ -28,3 +28,4 @@ app.get('/api/v1/teetimes', (req, res) => {
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`)
+})
