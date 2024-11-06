@@ -6,10 +6,12 @@ $(function () {
         url: teeTimeAPI,
         method: 'GET',
         success: function (data) {
-          var list = $(timeList)
+          var ul = $(timeList)
           $.each(data, function (i, time) {
-            var data = $('<li></li>').text(time.time)
-            list.append(data)
+            var li = $('<li></li>')
+            var data = $('<a href="https://foreupsoftware.com/index.php/booking/19396/1726#teetimes" class="block text-center w-96 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white hover: cursor-pointer"></a>').text(time.time)
+            li.append(data)
+            ul.append(li)
           });
         },
         error: function (err) {
@@ -17,8 +19,10 @@ $(function () {
         },
       });
     }
+    getTeeTimes('#sleepyList')
     $('#sleepy').on('click', function(){
-      getTeeTimes('#sleepyList')
+      var dropdown = $('#sleepyList')
+      dropdown.toggleClass('hidden')
     })
 })
 
