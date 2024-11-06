@@ -4,10 +4,11 @@ $(function () {
         url: API,
         method: 'GET',
         success: function (data) {
+          console.log(`count: ${data.length}`)
+          console.log(data)
           var ul = $(timeList)
           $.each(data, function (i, time) {
             var li = $('<li></li>')
-            //href="https://foreupsoftware.com/index.php/booking/19396/1726#teetimes"
             var data = $('<a class="block text-center w-96 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white hover: cursor-pointer"></a>').text(time.time)
             li.append(data)
             ul.append(li)
