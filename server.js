@@ -16,12 +16,12 @@ app.use(express.static(path.join(__dirname,'public')))
 
 //organize date
 const [year, month, day] = new Date().toISOString().split('T')[0].split('-');
+console.log(year, month, day)
 
 app.get('/api/v1/sleepy', (req, res) => {
     
-    axios.get(`https://foreupsoftware.com/index.php/api/booking/times?time=all&date=11-07-2024&holes=all&players=0&booking_class=3412&schedule_id=1726&schedule_ids%5B%5D=1726&specials_only=0&api_key=no_limits`)
+    axios.get(`https://foreupsoftware.com/index.php/api/booking/times?time=all&date=${month}-${day}-${year}&holes=all&players=0&booking_class=3412&schedule_id=1726&schedule_ids%5B%5D=1726&specials_only=0&api_key=no_limits`)
         .then((response) => {
-            console.log(response.data)
             res.json(response.data); // Return the data back to the client
         })
         .catch((error) => {
@@ -31,7 +31,7 @@ app.get('/api/v1/sleepy', (req, res) => {
 });
 
 app.get('/api/v1/timp', (req, res) => {
-    axios.get(`https://foreupsoftware.com/index.php/api/booking/times?time=all&date=11-07-2024&holes=all&players=0&booking_class=14927&schedule_id=49&schedule_ids%5B%5D=49&schedule_ids%5B%5D=1973&schedule_ids%5B%5D=7542&specials_only=0&api_key=no_limits`)
+    axios.get(`https://foreupsoftware.com/index.php/api/booking/times?time=all&date=${month}-${day}-${year}&holes=all&players=0&booking_class=14927&schedule_id=49&schedule_ids%5B%5D=49&schedule_ids%5B%5D=1973&schedule_ids%5B%5D=7542&specials_only=0&api_key=no_limits`)
         .then((response) => {
             res.json(response.data); // Just send the raw data for now
         })
@@ -42,7 +42,7 @@ app.get('/api/v1/timp', (req, res) => {
 });
 
 app.get('/api/v1/oaks', (req, res) => {
-    axios.get(`https://foreupsoftware.com/index.php/api/booking/times?time=all&date=11-07-2024&holes=all&players=0&booking_class=10949&schedule_id=8633&schedule_ids%5B%5D=8633&specials_only=0&api_key=no_limits`)
+    axios.get(`https://foreupsoftware.com/index.php/api/booking/times?time=all&date=${month}-${day}-${year}&holes=all&players=0&booking_class=10949&schedule_id=8633&schedule_ids%5B%5D=8633&specials_only=0&api_key=no_limits`)
         .then((response) => {
             res.json(response.data); // Just send the raw data for now
         })
