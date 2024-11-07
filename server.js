@@ -19,8 +19,7 @@ const [year, month, day] = new Date().toISOString().split('T')[0].split('-');
 console.log(year, month, day)
 
 app.get('/api/v1/sleepy', (req, res) => {
-    
-    axios.get(`https://foreupsoftware.com/index.php/api/booking/times?time=all&date=${month}-${day}-${year}&holes=all&players=0&booking_class=3412&schedule_id=1726&schedule_ids%5B%5D=1726&specials_only=0&api_key=no_limits`)
+    axios.get(`https://foreupsoftware.com/index.php/api/booking/times?time=all&date=${month}-${day}-${year}&holes=all&players=1&booking_class=3412&schedule_id=1726&schedule_ids%5B%5D=1726&specials_only=0&api_key=no_limits`)
         .then((response) => {
             res.json(response.data); // Return the data back to the client
         })

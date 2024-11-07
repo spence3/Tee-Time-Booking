@@ -1,4 +1,5 @@
 $(function () {
+  //Make this Async
   function getTeeTimes(buttonTag, dropDownTag, timeList, API, URL) {
       $.ajax({
         url: API,
@@ -11,6 +12,7 @@ $(function () {
           var button = $(buttonTag)
           var ul = $(timeList)
           $.each(data, function (i, data) {
+            console.log('in here')
             //switching army to standard
             var armyTime = data.time.split(' ')
             var standardTime = moment(armyTime[1], 'HH:mm').format('h:mm A');
@@ -40,6 +42,7 @@ $(function () {
       });
     }
 
+    //Make Async
     function dropDownShow(buttonTag, dropdown, timeList, API, URL){
       const isVisible = !dropdown.hasClass('hidden'); // Check if it's already visible
 
@@ -54,18 +57,21 @@ $(function () {
     $('#sleepy').on('click', function(){
       const sleepyAPI = '/api/v1/sleepy'
       var dropdown = $('#sleepyDropDown')
+      //Call it as an async
       dropDownShow('#sleepy', dropdown,'#sleepyList', sleepyAPI, 'https://foreupsoftware.com/index.php/booking/19396/1726#/teetimes')
     })
 
     $('#timp').on('click', function(){
       const timpAPI = '/api/v1/timp'
       var dropdown = $('#timpDropDown')
+      //Call it as an async
       dropDownShow('#timp', dropdown,'#timpList', timpAPI, 'https://foreupsoftware.com/index.php/booking/6279/49#/teetimes')
     })
 
     $('#oaks').on('click', function(){
       const oaksAPI = '/api/v1/oaks'
       var dropdown = $('#oaksDropDown')
+      //Call it as an async
       dropDownShow('#oaks', dropdown,'#oaksList', oaksAPI, 'https://foreupsoftware.com/index.php/booking/6279/49#/teetimes')
     })
 })
