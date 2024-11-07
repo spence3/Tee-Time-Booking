@@ -1,5 +1,5 @@
 $(function () {
-  function getTeeTimes(buttonTag, dropDownTag, timeList, API) {
+  function getTeeTimes(buttonTag, dropDownTag, timeList, API, URL) {
       $.ajax({
         url: API,
         method: 'GET',
@@ -11,10 +11,14 @@ $(function () {
           var button = $(buttonTag)
           var ul = $(timeList)
           $.each(data, function (i, data) {
+            //switching army to standard
+            var armyTime = data.time.split(' ')
+            var standardTime = moment(armyTime[1], 'HH:mm').format('h:mm A');
+
             var li = $('<li></li>')
             //var data = $('<a class="block text-center w-96 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white hover: cursor-pointer"></a>').text(time.time)
-            var book = $(`<a href="#" class="flex flex-row justify-evenly p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">` +
-                          `<h5 class="px-4 dark:text-white">Time: ${data.time}</h5>` +
+            var book = $(`<a href="${URL}" class="flex flex-row justify-evenly p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">` +
+                          `<h5 class="px-4 dark:text-white">Time: ${standardTime}</h5>` +
                           `<p class="px-4 dark:text-white">Minimum Players: ${data.minimum_players}</p>` +
                           ` <p class="px-4 dark:text-white">Maximum Players: ${data.maximum_players_per_booking}</p>` +
                           `<p class="px-4 dark:text-white">Holes: ${data.holes}</p>` +
@@ -37,43 +41,27 @@ $(function () {
       });
     }
 
-    function dropDownShow(buttonTag, dropdown, timeList, API){
+    function dropDownShow(buttonTag, dropdown, timeList, API, URL){
       const isVisible = !dropdown.hasClass('hidden'); // Check if it's already visible
 
       // Hide it if it's visible, or show it if it's hidden
       if (isVisible) {
         dropdown.addClass('hidden');
       } else {
-        getTeeTimes(buttonTag, dropdown, timeList, API);
+        getTeeTimes(buttonTag, dropdown, timeList, API, URL);
       }
     }
 
     $('#sleepy').on('click', function(){
       const sleepyAPI = '/api/v1/sleepy'
       var dropdown = $('#sleepyDropDown')
-      dropDownShow('#sleepy', dropdown,'#sleepyList', sleepyAPI)
-    //   const isVisible = !dropdown.hasClass('hidden'); // Check if it's already visible
-
-    // // Hide it if it's visible, or show it if it's hidden
-    // if (isVisible) {
-    //   dropdown.addClass('hidden');
-    // } else {
-    //   getTeeTimes('#sleepy', '#sleepyDropDown','#sleepyList', sleepyAPI);
-    // }
+      dropDownShow('#sleepy', dropdown,'#sleepyList', sleepyAPI, 'https://foreupsoftware.com/index.php/booking/19396/1726#/teetimes')
     })
 
     $('#timp').on('click', function(){
       const timpAPI = '/api/v1/timp'
       var dropdown = $('#timpDropDown')
-      dropDownShow('#timp', dropdown,'#timpList', timpAPI)
-      // const isVisible = !dropdown.hasClass('hidden'); // Check if it's already visible
-
-      // // Hide it if it's visible, or show it if it's hidden
-      // if (isVisible) {
-      //   dropdown.addClass('hidden');
-      // } else {
-      //   getTeeTimes('#timp', '#timpDropDown', '#timpList', timpAPI);
-      // }
+      dropDownShow('#timp', dropdown,'#timpList', timpAPI, 'https://foreupsoftware.com/index.php/booking/6279/49#/teetimes')
     })
 
 
