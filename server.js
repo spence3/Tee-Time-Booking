@@ -33,8 +33,17 @@ app.get('/api/v1/sleepy', (req, res) => {
 app.get('/api/v1/timp', (req, res) => {
     axios.get(`https://foreupsoftware.com/index.php/api/booking/times?time=all&date=11-07-2024&holes=all&players=0&booking_class=14927&schedule_id=49&schedule_ids%5B%5D=49&schedule_ids%5B%5D=1973&schedule_ids%5B%5D=7542&specials_only=0&api_key=no_limits`)
         .then((response) => {
-            // console.log(response.data); // Log the entire response data
-            // Check if it's JSON or HTML
+            res.json(response.data); // Just send the raw data for now
+        })
+        .catch((error) => {
+            console.error('Error fetching booking data:', error);
+            res.status(500).json({ error: 'Failed to fetch booking data' });
+        });
+});
+
+app.get('/api/v1/oaks', (req, res) => {
+    axios.get(`https://foreupsoftware.com/index.php/api/booking/times?time=all&date=11-07-2024&holes=all&players=0&booking_class=10949&schedule_id=8633&schedule_ids%5B%5D=8633&specials_only=0&api_key=no_limits`)
+        .then((response) => {
             res.json(response.data); // Just send the raw data for now
         })
         .catch((error) => {
@@ -46,3 +55,5 @@ app.get('/api/v1/timp', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`)
 })
+
+//https://foreupsoftware.com/index.php/api/booking/times?time=all&date=11-07-2024&holes=all&players=0&booking_class=10949&schedule_id=8633&schedule_ids%5B%5D=8633&specials_only=0&api_key=no_limits

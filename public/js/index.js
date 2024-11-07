@@ -14,7 +14,6 @@ $(function () {
             //switching army to standard
             var armyTime = data.time.split(' ')
             var standardTime = moment(armyTime[1], 'HH:mm').format('h:mm A');
-
             var li = $('<li></li>')
             //var data = $('<a class="block text-center w-96 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white hover: cursor-pointer"></a>').text(time.time)
             var book = $(`<a href="${URL}" class="flex flex-row justify-evenly p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">` +
@@ -64,8 +63,9 @@ $(function () {
       dropDownShow('#timp', dropdown,'#timpList', timpAPI, 'https://foreupsoftware.com/index.php/booking/6279/49#/teetimes')
     })
 
-
-
+    $('#oaks').on('click', function(){
+      const oaksAPI = '/api/v1/oaks'
+      var dropdown = $('#oaksDropDown')
+      dropDownShow('#oaks', dropdown,'#oaksList', oaksAPI, 'https://foreupsoftware.com/index.php/booking/6279/49#/teetimes')
+    })
 })
-
-//
