@@ -52,7 +52,7 @@ app.get('/api/v1/oaks', (req, res) => {
 
 app.get('/api/v1/soldier-hollow', (req, res) => {
     console.log('made it hear')
-    axios.get("https://phx-api-be-east-1b.kenna.io/v2/tee-times?date=2024-11-11&facilityIds=17072,17073", {
+    axios.get("https://phx-api-be-east-1b.kenna.io/v2/tee-times?date=2024-11-10&facilityIds=17072,17073", {
         "headers": {
           "accept": "application/json, text/plain, */*",
           "accept-language": "en-US,enq=0.9",
@@ -73,13 +73,24 @@ app.get('/api/v1/soldier-hollow', (req, res) => {
         "method": "GET"
       })
       .then((response) => {
-        data = {
-            time: response.data[1].teetimes.teetime,
-            minimum_players: response.data[1].teetimes.minPlayers,
-            maximum_players_per_booking: response.data[1].teetimes.maxPlayers,
-            // holse: response.data[1].teetimes
+        const allowedHoles = 18 //set this temporarily for now. Have to dig deep on each list item to get the holes 
+                         //response.data[1].teetimes[0].rates[0].holes
+        // const teeTimes = response.data[1].teetimes
+        // console.log(response.data[1].teetimes)
+        teeTimes = response.data[1].teetimes
+        teeTimes.forEach((element) => {console.log(`${element.teetime}\m`)})
+        console.log('-------------------------')
+        console.log(teeTimes)
+
+
+        const newData = {
+            time: teeTimes.teetime,
+            minimum_players: teeTimes.minPlayers,
+            maximum_players_per_booking: teeTimes.maxPlayers,
+            holes: allowedHoles,
+            available_spots: teeTimes.maxPlayers
         }
-        res.json(response.data[1].teetimes)
+        res.json(newData)
       })
       .catch((error) => {
         console.error('Error fetching booking data:', error)
