@@ -40,7 +40,7 @@ app.get('/api/v1/timp', (req, res) => {
 })
 
 app.get('/api/v1/oaks', (req, res) => {
-    axios.get(`https://foreupsoftware.com/index.php/api/booking/times?time=all&date=${month}-10-${year}&holes=all&players=0&booking_class=10949&schedule_id=8633&schedule_ids%5B%5D=8633&specials_only=0&api_key=no_limits`)
+    axios.get(`https://foreupsoftware.com/index.php/api/booking/times?time=all&date=${month}-12-${year}&holes=all&players=0&booking_class=10949&schedule_id=8633&schedule_ids%5B%5D=8633&specials_only=0&api_key=no_limits`)
         .then((response) => {
             res.json(response.data) // Just send the raw data for now
         })
@@ -51,8 +51,7 @@ app.get('/api/v1/oaks', (req, res) => {
 })
 
 app.get('/api/v1/soldier-hollow', (req, res) => {
-    console.log('made it hear')
-    axios.get("https://phx-api-be-east-1b.kenna.io/v2/tee-times?date=2024-11-10&facilityIds=17072,17073", {
+    axios.get("https://phx-api-be-east-1b.kenna.io/v2/tee-times?date=2024-11-12&facilityIds=17072,17073", {
         "headers": {
           "accept": "application/json, text/plain, */*",
           "accept-language": "en-US,enq=0.9",
@@ -75,22 +74,44 @@ app.get('/api/v1/soldier-hollow', (req, res) => {
       .then((response) => {
         const allowedHoles = 18 //set this temporarily for now. Have to dig deep on each list item to get the holes 
                          //response.data[1].teetimes[0].rates[0].holes
-        // const teeTimes = response.data[1].teetimes
-        // console.log(response.data[1].teetimes)
+                         //console.log(`${element.teetime}\n`
         teeTimes = response.data[1].teetimes
-        teeTimes.forEach((element) => {console.log(`${element.teetime}\m`)})
+        //format datetime function
+        intlDateObj = new Intl.DateTimeFormat('en-US', {
+            timeZone: "America/New_York",
+            hour: '2-digit',
+            minute: '2-digit',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour12: false
+          });
+
+        const teeData = teeTimes.map((element) =>{
+            var date = new Date(element.teetime)
+            var formatDate = intlDateObj.format(date)
+            var regex = /\//g
+            formatDate = formatDate.replace(",", "")
+            formatDate = formatDate.replace(regex, "-")
+
+            var justDate = formatDate.split(' ')[0]
+            justDate = justDate.split('-')
+            justDate = `${justDate[2]}-${justDate[0]}-${justDate[1]}`
+            return{
+                time: newda,
+                minimum_players: element.minPlayers,
+                maximum_players_per_booking: element.maxPlayers,
+                holes: element.rates[0].holes,
+                available_spots: element.maxPlayers
+            }
+        })
+        teeData.forEach(element => {
+            console.log(element.time)
+        });
         console.log('-------------------------')
-        console.log(teeTimes)
+        // console.log(teeTimes)
 
-
-        const newData = {
-            time: teeTimes.teetime,
-            minimum_players: teeTimes.minPlayers,
-            maximum_players_per_booking: teeTimes.maxPlayers,
-            holes: allowedHoles,
-            available_spots: teeTimes.maxPlayers
-        }
-        res.json(newData)
+        // res.json()
       })
       .catch((error) => {
         console.error('Error fetching booking data:', error)
