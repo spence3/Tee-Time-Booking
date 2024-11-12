@@ -88,30 +88,32 @@ app.get('/api/v1/soldier-hollow', (req, res) => {
           });
 
         const teeData = teeTimes.map((element) =>{
+            //format the date string
             var date = new Date(element.teetime)
             var formatDate = intlDateObj.format(date)
-            var regex = /\//g
-            formatDate = formatDate.replace(",", "")
-            formatDate = formatDate.replace(regex, "-")
 
+            var index = formatDate.indexOf(",")
+            var justTime = formatDate.slice(index + 2)
+
+            //Only get the date
+            formatDate = formatDate.replace(',', '')
             var justDate = formatDate.split(' ')[0]
-            justDate = justDate.split('-')
+            justDate = justDate.split('/')
             justDate = `${justDate[2]}-${justDate[0]}-${justDate[1]}`
+
+            //Only get the new date
+            var newDate = `${justDate} ${justTime}`
+
             return{
-                time: newda,
+                time: newDate,
                 minimum_players: element.minPlayers,
                 maximum_players_per_booking: element.maxPlayers,
                 holes: element.rates[0].holes,
                 available_spots: element.maxPlayers
             }
         })
-        teeData.forEach(element => {
-            console.log(element.time)
-        });
-        console.log('-------------------------')
-        // console.log(teeTimes)
 
-        // res.json()
+        res.json(teeData)
       })
       .catch((error) => {
         console.error('Error fetching booking data:', error)
