@@ -89,6 +89,6 @@ $(function () {
   $('#soldier').on('click', async function(){
     const soldierAPI = 'api/v1/soldier-hollow'
     var dropdown = $('#soldierDropDown')
-    await dropDownShow('#soldier', dropdown,'#soldierList', soldierAPI, 'https://foreupsoftware.com/index.php/booking/21698/8633#teetimes')
+    await dropDownShow('#soldier', dropdown,'#soldierList', soldierAPI, 'https://stateparks.utah.gov/golf/soldier-hollow/teetime/')
   })
 })

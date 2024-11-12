@@ -17,6 +17,7 @@ app.use(express.static(path.join(__dirname,'public')))
 const [year, month, day] = new Date().toISOString().split('T')[0].split('-')
 console.log(year, month, day)
 
+//SLEEPY RIDGE
 app.get('/api/v1/sleepy', (req, res) => {
     axios.get(`https://foreupsoftware.com/index.php/api/booking/times?time=all&date=${month}-10-${year}&holes=all&players=0&booking_class=3412&schedule_id=1726&schedule_ids%5B%5D=1726&specials_only=0&api_key=no_limits`)
         .then((response) => {
@@ -28,6 +29,7 @@ app.get('/api/v1/sleepy', (req, res) => {
         })
 })
 
+//TIMP
 app.get('/api/v1/timp', (req, res) => {
     axios.get(`https://foreupsoftware.com/index.php/api/booking/times?time=all&date=${month}-10-${year}&holes=all&players=0&booking_class=14927&schedule_id=49&schedule_ids%5B%5D=49&schedule_ids%5B%5D=1973&schedule_ids%5B%5D=7542&specials_only=0&api_key=no_limits`)
         .then((response) => {
@@ -39,6 +41,7 @@ app.get('/api/v1/timp', (req, res) => {
         })
 })
 
+//SPANISH FORK OAKS
 app.get('/api/v1/oaks', (req, res) => {
     axios.get(`https://foreupsoftware.com/index.php/api/booking/times?time=all&date=${month}-12-${year}&holes=all&players=0&booking_class=10949&schedule_id=8633&schedule_ids%5B%5D=8633&specials_only=0&api_key=no_limits`)
         .then((response) => {
@@ -50,6 +53,7 @@ app.get('/api/v1/oaks', (req, res) => {
         })
 })
 
+//SOLDIER HOLLOW
 app.get('/api/v1/soldier-hollow', (req, res) => {
     axios.get("https://phx-api-be-east-1b.kenna.io/v2/tee-times?date=2024-11-12&facilityIds=17072,17073", {
         "headers": {
@@ -72,10 +76,7 @@ app.get('/api/v1/soldier-hollow', (req, res) => {
         "method": "GET"
       })
       .then((response) => {
-        const allowedHoles = 18 //set this temporarily for now. Have to dig deep on each list item to get the holes 
-                         //response.data[1].teetimes[0].rates[0].holes
-                         //console.log(`${element.teetime}\n`
-        teeTimes = response.data[1].teetimes
+        teeTimes = response.data[1].teetimes //Accessing teetime data
         //format datetime function
         intlDateObj = new Intl.DateTimeFormat('en-US', {
             timeZone: "America/New_York",
@@ -112,7 +113,6 @@ app.get('/api/v1/soldier-hollow', (req, res) => {
                 available_spots: element.maxPlayers
             }
         })
-
         res.json(teeData)
       })
       .catch((error) => {
@@ -120,6 +120,8 @@ app.get('/api/v1/soldier-hollow', (req, res) => {
         res.status(500).json({ error: 'Failed to fetch booking data' })
     })
 })
+
+
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`)
