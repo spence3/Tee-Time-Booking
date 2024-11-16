@@ -19,7 +19,7 @@ console.log(year, month, day)
 
 //SLEEPY RIDGE
 app.get('/api/v1/sleepy', (req, res) => {
-    axios.get(`https://foreupsoftware.com/index.php/api/booking/times?time=all&date=${month}-10-${year}&holes=all&players=0&booking_class=3412&schedule_id=1726&schedule_ids%5B%5D=1726&specials_only=0&api_key=no_limits`)
+    axios.get(`https://foreupsoftware.com/index.php/api/booking/times?time=all&date=${month}-16-${year}&holes=all&players=0&booking_class=3412&schedule_id=1726&schedule_ids%5B%5D=1726&specials_only=0&api_key=no_limits`)
         .then((response) => {
             res.json(response.data) // Return the data back to the client
         })
@@ -31,7 +31,7 @@ app.get('/api/v1/sleepy', (req, res) => {
 
 //TIMP
 app.get('/api/v1/timp', (req, res) => {
-    axios.get(`https://foreupsoftware.com/index.php/api/booking/times?time=all&date=${month}-10-${year}&holes=all&players=0&booking_class=14927&schedule_id=49&schedule_ids%5B%5D=49&schedule_ids%5B%5D=1973&schedule_ids%5B%5D=7542&specials_only=0&api_key=no_limits`)
+    axios.get(`https://foreupsoftware.com/index.php/api/booking/times?time=all&date=${month}-16-${year}&holes=all&players=0&booking_class=14927&schedule_id=49&schedule_ids%5B%5D=49&schedule_ids%5B%5D=1973&schedule_ids%5B%5D=7542&specials_only=0&api_key=no_limits`)
         .then((response) => {
             res.json(response.data) // Just send the raw data for now
         })
@@ -43,7 +43,7 @@ app.get('/api/v1/timp', (req, res) => {
 
 //SPANISH FORK OAKS
 app.get('/api/v1/oaks', (req, res) => {
-    axios.get(`https://foreupsoftware.com/index.php/api/booking/times?time=all&date=${month}-12-${year}&holes=all&players=0&booking_class=10949&schedule_id=8633&schedule_ids%5B%5D=8633&specials_only=0&api_key=no_limits`)
+    axios.get(`https://foreupsoftware.com/index.php/api/booking/times?time=all&date=${month}-16-${year}&holes=all&players=0&booking_class=10949&schedule_id=8633&schedule_ids%5B%5D=8633&specials_only=0&api_key=no_limits`)
         .then((response) => {
             res.json(response.data) // Just send the raw data for now
         })
@@ -55,7 +55,7 @@ app.get('/api/v1/oaks', (req, res) => {
 
 //SOLDIER HOLLOW
 app.get('/api/v1/soldier-hollow', (req, res) => {
-    axios.get("https://phx-api-be-east-1b.kenna.io/v2/tee-times?date=2024-11-12&facilityIds=17072,17073", {
+    axios.get("https://phx-api-be-east-1b.kenna.io/v2/tee-times?date=2024-11-16&facilityIds=17072,17073", {
         "headers": {
           "accept": "application/json, text/plain, */*",
           "accept-language": "en-US,enq=0.9",
@@ -76,10 +76,10 @@ app.get('/api/v1/soldier-hollow', (req, res) => {
         "method": "GET"
       })
       .then((response) => {
-        teeTimes = response.data[1].teetimes //Accessing teetime data
+        teeTimes = response.data[1].teetimes
         //format datetime function
         intlDateObj = new Intl.DateTimeFormat('en-US', {
-            timeZone: "America/New_York",
+            timeZone: "America/Denver",
             hour: '2-digit',
             minute: '2-digit',
             year: 'numeric',
